@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zombie App</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>
+            Umbrella Corporation
+            <span>
+                <img src="https://vignette.wikia.nocookie.net/residentevil/images/5/50/UmbrellaCorporation3.png/revision/latest/scale-to-width-down/250?cb=20130206014840" style="width: 50px;">
+            </span>
+        </h1>
+
+        <h3>Infected Log</h3>
+
+        <h4>Filter by:</h4>
+        <div class="input-group" style="padding-bottom: 20px;">
+            <span class="input-group-addon" id="basic-addon1">
+                <select id="filter-param">
+                    <option value="name">Name</option>
+                    <option value="graveyard">Graveyard</option>
+                    <option value="city">City</option>
+              </select>
+            </span>
+            <input id="filter-value" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" style="width: 300px; margin-right: 10px;">
+            <span>
+                <button type="button" id="filter" onclick="filterZombies()" class="btn btn-primary">Filter</button>
+                <button type="button" id="reset-filter" onclick="reloadZombiesTable()" class="btn btn-danger">Reset Filter</button>
+            </span>
+        </div>
+
+        <table id="zombies" class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <th>Name</th>
+                    <th>Graveyard</th>
+                    <th>City</th>
+                    <th>Edit</th>
+                    <th>Heroes never die!</th>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Healed</h3>
+        <table id="healed" class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Add Zombies</h3>
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Zombie Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter zombie name">
+            </div>
+            <div class="form-group">
+                <label for="graveyard">Graveyard</label>
+                <input type="text" class="form-control" id="graveyard" placeholder="Graveyard">
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" class="form-control" id="city" placeholder="City">
+            </div>
+            <button type="button" id="add" onclick="addZombie()" class="btn btn-primary">Add Zombie</button>
+        </form>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

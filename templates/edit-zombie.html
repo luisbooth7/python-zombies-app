@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zombie App</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>
+            Umbrella Corporation
+            <span>
+                <img src="https://vignette.wikia.nocookie.net/residentevil/images/5/50/UmbrellaCorporation3.png/revision/latest/scale-to-width-down/250?cb=20130206014840" style="width: 50px;">
+            </span>
+        </h1>
+
+        <h3>Infected Details</h3>
+        <table id="zombies" class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <th>Name</th>
+                    <th>Graveyard</th>
+                    <th>City</th>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Update Zombie Info‍</h3>
+        <form>
+            <div class="form-group">
+                <label for="graveyard">Graveyard</label>
+                <input type="text" class="form-control" id="graveyard" placeholder="Graveyard">
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" class="form-control" id="city" placeholder="City">
+            </div>
+            <button type="button" id="add" onclick="updateZombie()" class="btn btn-primary">Save</button>
+            <a href="/" class="btn btn-danger">Cancel</a>
+        </form>
+    </div>
+
+    <script>
+        function updateZombie() {
+            const id = '{{ id }}';
+            const graveyard = document.getElementsByClassName('form-control')[0].value;
+            const city = document.getElementsByClassName('form-control')[1].value;
+            const url = encodeURI(`/UpdateZombie?id=${id}&graveyard=${graveyard}&city=${city}`);
+
+            fetch(url, { method: 'POST', mode: 'cors' })
+            .then(response => response.status == 200 && (window.location.href = ("/")))
+        };
+    </script>
+
+    <script>
+        (function() {
+            const url = `/GetZombieInfo?id={{ id }}`;
+
+            fetch(url, { method: 'GET', mode: 'cors' })
+            .then(response => response.json())
+            .then(data => {
+                data.zombies.map((item, index) => {
+                    const table = document.getElementById("zombies");
+                    let row = table.insertRow(-1);
+                    let cell1 = row.insertCell(0);
+                    let cell2 = row.insertCell(1);
+                    let cell3 = row.insertCell(2);
+
+                    cell1.innerHTML = item.NAME;
+                    cell2.innerHTML = item.GRAVEYARD;
+                    cell3.innerHTML = item.CITY;
+                })
+            })
+        })();
+    </script>
+</body>
+</html>
