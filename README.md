@@ -13,7 +13,7 @@ $ pip install -r requirements.txt
 
 Configures database, creates tables, inserts records
 ```
-$ python db_seup.py
+$ python db_setup.py
 ```
 
 Start Application
